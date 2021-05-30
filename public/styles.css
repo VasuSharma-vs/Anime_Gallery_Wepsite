@@ -1,0 +1,43 @@
+body {
+    margin: 0px;
+}
+
+.bg_img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.page {
+    height: 100%;
+}
+
+.down  {
+    transform: rotatex(0deg);
+    margin: 20px 50px;
+    transition:transform 2s margin 2s;
+}
+
+.up {
+    transform: rotatex(-0deg);
+    margin: 20px 50px;
+    transition:transform 2s margin 2s;
+}
+
+.blur {
+    filter: blur(2px);
+    transition: filter 2s;
+}
+
+.HomeIcon {
+    align-items: center;
+    height: 100px;
+}
+
+.logoImg {
+    transition: margin 1s, blur 1s;
+    height: 500px;
+    position: absolute;
+}
+
+
