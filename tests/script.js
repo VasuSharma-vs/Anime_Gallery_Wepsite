@@ -1,8 +1,87 @@
-const canvas = $("#a")[0];
-const ctx = canvas.getContext("2d");
-const image1 = new Image();
-image1.src = '../hom_logo_image/bg_black.png';
+function loop(times, data) { 
 
-image1.addEventListener('load', () => {
-    ctx.drawImage(image1, 0, 0);
-})
+    const rV = [];
+    const nextTime = times/10;
+
+    console.log(nextTime)
+
+    
+        if (times<10) {
+            for (let i = 0; i<10; i++) {
+            rV.push("O");
+            }
+        } else {
+            rV.push(loop(nextTime, null))
+            
+        }
+
+    return rV
+
+ }
+
+function createImage(height, width) {
+   
+    const pixels = height * width;
+
+    const pixelsList = [];
+    console.log(pixels, 100, pixels/100)
+    var orignalTimes = pixels;
+    
+    console.log(loop(pixels, null))
+    
+    
+
+  }
+
+  console.log(createImage(100, 10))
+
+
+
+
+  let particlesArray = [];
+  const numberOfParticles = 50;
+
+  class Particle {
+      constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = 0;
+          this.speed = 0;
+          this.velocity = Math.random() * 0;
+          this.size = Math.random() * 1.5 + 1;
+      }
+  
+      update() {
+          this.y+= this.velocity;
+          if (this.y >= canvas.height) {
+              this.y = 0;
+              this.x = Math.random() * canvas.width;
+          }
+      }
+
+      draw() {
+          ctx.beginPath();
+          ctx.fillStyle = 'white';
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+          ctx.fill();
+      }
+  }
+
+  function init() {
+      for (let i = 0; i< numberOfParticles; i++) {
+          particlesArray.push(new Particle);
+      }
+  }
+
+  init();
+
+  function animate() {
+      ctx.globalAlpha = 0.05;
+      ctx.fillStyle = 'rgb(0, 0, 0)';
+      ctx.fillRect (0, 0, sWidth, sHeight);
+      for (let i = 0; i< particlesArray.length; i++) {
+          particlesArray[i].update();
+          particlesArray[i].draw();
+      }
+      requestAnimationFrame(animate);
+  }
+  animate();

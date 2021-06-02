@@ -1,0 +1,28 @@
+{
+  "name": "anime_gallery_website",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VasuSharma-vs/Anime_Gallery_Wepsite.git"
+  },
+  "author": "VasuSharma-vs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VasuSharma-vs/Anime_Gallery_Wepsite/issues"
+  },
+  "homepage": "https://github.com/VasuSharma-vs/Anime_Gallery_Wepsite#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
