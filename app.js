@@ -10,7 +10,7 @@ app.use(express.static("public"));
 
 Router("/")
     .get((req, res)=> {
-        res.sendFile("./public/index.html");
+        res.send("index.html");
     });
 
 
@@ -42,4 +42,4 @@ Router("/getin")
 
 app.listen(3000, function() {
     console.log("Server started on port 3000");
-  }); 
+  });

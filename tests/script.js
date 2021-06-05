@@ -19,19 +19,7 @@ function loop(times, data) {
 
  }
 
-function createImage(height, width) {
-   
-    const pixels = height * width;
-
-    const pixelsList = [];
-    console.log(pixels, 100, pixels/100)
-    var orignalTimes = pixels;
-    
-    console.log(loop(pixels, null))
-    
-    
-
-  }
+ 
 
   console.log(createImage(100, 10))
 
@@ -61,7 +49,7 @@ function createImage(height, width) {
       draw() {
           ctx.beginPath();
           ctx.fillStyle = 'white';
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false)
           ctx.fill();
       }
   }
@@ -84,4 +72,4 @@ function createImage(height, width) {
       }
       requestAnimationFrame(animate);
   }
-  animate();
+  //animate();

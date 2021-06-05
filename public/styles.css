@@ -1,7 +1,9 @@
 body {
     margin: 0px;
-    background-color: rgb(0, 0, 0);
+    background-color: black;
+    height: 100%;
 }
+
 
 .bg_img {
     position: absolute;
@@ -41,4 +43,8 @@ body {
     position: absolute;
 }
 
-
+#Name {
+    color: blanchedalmond;
+    margin-top: 4%;
+    text-align: center;
+}

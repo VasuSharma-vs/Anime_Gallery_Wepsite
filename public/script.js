@@ -1,6 +1,14 @@
 /** @type {htmlCanvasELement} */
 let sHeight = window.innerHeight;
 let sWidth = window.innerWidth;
+var particalSpeed = 1;
+var rgbColor = '255, 255, 255';
+var clean = false; 
+var parSize =  Math.random() * 1
+
+//$('#root').css('height', sHeight.toString() + "px")
+
+
 
 class StylesFolder {
 
@@ -127,7 +135,7 @@ const canvasSchema = {
         type: "px"
     },
     margin: {
-        value: [60, (sWidth - (imageSchema.width.value + 100))/2],
+        value: [30, (sWidth - (imageSchema.width.value + 100))/2],
         type: "px"
     } 
 }
@@ -176,75 +184,47 @@ const bgImageSchema = {
     }
 }
 
+
+const nameSchema = {
+    margin: {
+        value: imageSchema.height.value + imageSchema.margin.value[0]+ 60,
+        type: 'px'
+    }
+}
+
 const ImageCanvas = new StylesFolder(".logoImg", imageSchema);
 const ImageBox = new StylesFolder("#imgBox", imageBoxSchema)
 const CanvasContainer = new StylesFolder(".HomeIcon", canvasSchema);
 const UpImageAnimation = new StylesFolder(".up", imageUpAnimationSchema);
 const DowmImageAnimation = new StylesFolder(".down", imageDownAnimationSchema);
+const BrandName = new StylesFolder('#Name', nameSchema);
 
 applyCss(ImageCanvas);
 applyCss(CanvasContainer);
 applyCss(ImageBox);
+//applyCss(BrandName);
+
+$(".logoImg").mouseover(() => {
+    particalSpeed = 5;
+    rgbColor = '255, 50, 50';
+    clean = true;
+    parSize =  Math.random() * 3;
+    
+});
+
+$(".logoImg").mouseout(() => {
+
+    particalSpeed = 2; 
+    rgbColor = '255, 255, 255';
+    clean = false
+    parSize =  Math.random() * 1;
+});
 
 $("#imgBox").mouseover(() => {
     applyCss(UpImageAnimation);
-    applyCss(DowmImageAnimation);
+    applyCss(DowmImageAnimation);   
 })
 
 $("#imgBox").mouseout(() => { 
     applyCss(ImageCanvas);
 });
-
-const canvas = $("#bgBox")[0];
-
-const image1 = new Image();
-const BgImage = new StylesFolder(".bg_img", bgImageSchema);
-
-
-// ./hom_logo_image/fullblacktest.png
-image1.src = './hom_logo_image/fullblack.png';
-image1.height = sHeight;
-image1.width = sWidth;
-//applyCss(BgImage);
-
-image1.addEventListener('load', () => {
-
-    const ctx = canvas.getContext('2d');
-    const imagedata = ctx.getImageData(0, 0, sWidth, sHeight);
-    canvas.height = sHeight;
-    canvas.width = sWidth;
-
-    let imageData = ctx.getImageData(0, 0, sWidth, sHeight);
-    console.log(imageData);
-
-    let x = Math.floor(Math.random() * sWidth);
-    let y = Math.floor(Math.random() * sHeight);
-    let particleHeight =  5;
-    let particleWidth = 5;
-
-    let redValue = 255;
-    let greenValue = 255;
-    let blueValue = 255;
-
-    function partical() {
-        ctx.beginPath();
-        ctx.fillStyle  = `rgb(${redValue}n ${greenValue}, ${blueValue})`;
-        ctx.fillRect(x, y, particleWidth, particleHeight);
-    }
-
-    function animateParticles() {
-        redValue -= 5;
-        blueValue -= 5;
-        greenValue -= 5;
-        y++;
-        partical();
-        window.requestAnimationFrame(animateParticles);
-    }
-
-    animateParticles();
-  
-
-});
-
-var time = new Date();
-console.log(((2 * Math.PI) / 60) * time.getSeconds() + ((2 * Math.PI) / 60000) * time.getMilliseconds());
