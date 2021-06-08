@@ -5,10 +5,18 @@ var particalSpeed = 1;
 var rgbColor = '255, 255, 255';
 var clean = false; 
 var parSize =  Math.random() * 1
+var mouse = {
+    x: null,
+    y: null
+};
 
 //$('#root').css('height', sHeight.toString() + "px")
 
+window.addEventListener('mousemove', event => {
+    mouse.y = event.y;
+    mouse.x = event.x;
 
+});
 
 class StylesFolder {
 
@@ -53,6 +61,7 @@ class StylesFolder {
 
         typeof(propValues) === 'object' ? 
             propValues.forEach(value => 
+
                 wholeValue += `${value.toString()}${propType} `):
 
             wholeValue = `${propValues.toString()}${propType} `;
@@ -70,6 +79,7 @@ class StylesFolder {
 
     updateValueOf(property, value, type) {
         this.properties[property] = {value: value, type: type};
+        this.propLists = Object.keys(this.properties);
     };
 
     addProps(obj) {
@@ -97,6 +107,7 @@ class StylesFolder {
 
 
 function applyCss(obj) {
+
     obj.propLists.
         forEach(singleProps => {
             $(obj.target).css(singleProps, obj.get(singleProps))});

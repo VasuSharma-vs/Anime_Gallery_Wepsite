@@ -3,20 +3,11 @@
 
 const canvas = $("#bgBox")[0];
 const image1 = new Image();
-var mouse = {
-    x: null,
-    y: null
-};
+
 
 image1.src = './hom_logo_image/fullblack.png';
 image1.height = sHeight;
 image1.width = sWidth;
-
-window.addEventListener('mousemove', event => {
-    mouse.y = event.y;
-    mouse.x = event.x;
-
-});
 
 
 image1.addEventListener('load', () => {
