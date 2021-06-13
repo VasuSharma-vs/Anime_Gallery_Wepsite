@@ -100,5 +100,3 @@ image1.addEventListener('load', () => {
     animate();
 
 });
-
-console.log(1/100)

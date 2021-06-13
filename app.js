@@ -4,10 +4,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import ejs from 'ejs'
+import ejs from 'ejs';
 import mongoose from 'mongoose';
 import Env from 'dotenv';
 import { futimesSync } from 'fs';
+import DBManager from './src/DBManager.js';
+import _ from 'lodash';
 
 // imported modules /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -39,8 +41,19 @@ app.use(express.static(__dirname+"/public"));
 
 // Mongoose Data Base on Atlas ///////////////////////////////////////////////////////////////////////////////
 
+function save() {
+
+    lit.Tag.connectToAtlas( obj => 
+        obj({Name: 'vasu'}).save(err => 
+            !err ? 
+                console.log('passed')
+            : 
+                console.log(err))
+    );
+}
+
 const DBSch = {
-    imageSchema: {
+    images: {
         imagestring: {
             type: String,
             require: true
@@ -71,7 +84,8 @@ const DBSch = {
             }
         }
     },
-    siteSetting: {
+
+    userinfo: {
         SiteName: {
             type : String,
             require: true
@@ -96,49 +110,91 @@ const DBSch = {
             type: String
         }
     },
+
     tags: {
         Name: {
             type: String,
             require: true
         }
-    }
+    }, 
+
+    clicked: {
+        Homepage: {
+            type: Number,
+            require: true
+        },
+
+        Gallery: {
+            type: Number,
+            require: true
+        },
+
+        Contact: {
+            type: Number,
+            require: true
+        }
+    },
 }
 
-function connectToAtlas(dataBase) {
-    const uri =  `mongodb+srv://ArtGallery:5CV@jah!r2uwiSZ@cluster0.wnnrb.mongodb.net/${dataBase}?retryWrites=true&w=majority`;
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const DataBase = new DBManager('AGdatabase', DBSch);
+const dbModels = DataBase.Modles;
 
-    funs();
-
-}
+//const lit = new DBManager(DBSch);
 
 // Mongoose Data Base on Atlas END //////////////////////////////////////////////////////////////////////////
 
 
 
 
-//
+// testing area /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createNewClick() {
+    dbModels.Clicked.connectToAtlas((obj)=> {
+        new obj({
+            Homepage: 0, Gallery: 0, Contact: 0
+        }).save(err => !err ? console.log('passed'): console.log(err)) 
+    })
+}
+
+
+// testing area //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+function UpdateClickOn(page) {
+
+    dbModels.Clicked.findOnAtlas((docs, obj) => {
+        obj.updateOnAtlas({[page]: docs[page]+1}, err => !err ? console.log('passed'): console.log(err))
+    }, dbModels.Clicked);
+    //obj.findOnAtlas((data, obj) =>  
+        //obj.updateOnAtlas({clicked: data.clicked+1}, err => err ? console.log(err): null), obj)
+}
 
 
 
 // AG.mongod.node.in.app.js
 
-// mongodb+srv://ArtGallery:<password>@cluster0.wnnrb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 
 app.route("/")
-    .get((req, res)=> {
+    .get((req, res)=> { 
+        UpdateClickOn('Homepage');
         res.render("Home");
     });
 
+
+
 app.route("/gallery")
     .get((req,res) => {
-        res.sendFile(__dirname+'/src/gallery.html')
+        UpdateClickOn('Gallery');
+        res.render('gallery')
     });
 
 
 app.route("/contactMe")
     .get((req,res)=> {
-
+        UpdateClickOn('Contact');
     });
 
 
@@ -157,7 +213,7 @@ app.route("/getin")
 let port = process.env.PORT;
 
 if (port == null || port == "") {
-  port = 8000;
+  port = 3000;
 }
 
 app.listen(port, function() {

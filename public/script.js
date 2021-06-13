@@ -239,3 +239,9 @@ $("#imgBox").mouseover(() => {
 $("#imgBox").mouseout(() => { 
     applyCss(ImageCanvas);
 });
+
+$(".logoImg").click(() => {
+    const mainLink = window.location.href;
+
+    window.location.replace(mainLink + 'gallery');
+})
